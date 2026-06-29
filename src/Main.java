@@ -29,7 +29,10 @@ public class Main {
             System.out.println(" 3 : حذف المنتج بواسطة رقم التعريف");
             System.out.println("\n");
             System.out.println("4 : اضافة منتج الى القائمة ");
-            System.out.println("5 : الخروج من النظام");
+            System.out.println("\n");
+            System.out.println("5: شراء منتج عن طريق رقم التعريف ");
+            System.out.println("\n");
+            System.out.println("6 : الخروج من النظام");
             System.out.println("\n");
             System.out.print("ادخل رقم خيارك 😊 : ");
             choice = input.nextInt();
@@ -78,12 +81,20 @@ public class Main {
                     break;
 
                 case 5:
+                    System.out.println("ادخل رقم المنتج الذي تريد شراءه : ");
+                    int productId = input.nextInt();
+                    System.out.println("ادخل الكمية التي تريدها ");
+                    int productQuantity = input.nextInt();
+                    mywarehouse.sellProduct(productId, productQuantity);
+                    break;1
+
+                case 6:
                     System.out.println("شكرا لاستخدام برنامجنا 😊 تم تسجيل الخروج بنجاح ");
                     running = false;
                     break;
 
                 default:
-                    System.out.println("الرجاء اختيار رقم من 1 الى 5 ");
+                    System.out.println("الرجاء اختيار رقم من 1 الى 6 ");
             }
 
         }

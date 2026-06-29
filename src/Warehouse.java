@@ -36,6 +36,11 @@ public class Warehouse {
                     int newQuantity = p.getQuantity() - amountToSell;
                     p.setQuantity(newQuantity);
                     System.out.println("تم بيع " + amountToSell + " قطع من " + p.getName());
+                    double total = p.getPrice() * amountToSell;
+                    System.out.println("الحساب الاجمالي :" + total + "$");
+                    if (p.getQuantity() <= 3) {
+                        System.out.println("الكمية من هذا المنتج اصبحت اقل من 3 ");
+                    }
                     return;
                 } else {
                     System.out.println("الكمية المطلوبة غير متاحة");
@@ -44,6 +49,7 @@ public class Warehouse {
             }
         }
         System.out.println(" لم يتم العثور على المنتج: " + id);
+
     }
 
     public void searchProductById(int id) {
