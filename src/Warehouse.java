@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Warehouse {
     private ArrayList<Product> stock;
+    private ArrayList<Invoice> invoices = new ArrayList<Invoice>();
 
 
     //الكونستراكتور لا يستقبل شيء فقط يقوم باضافة اول منتج
@@ -41,6 +42,11 @@ public class Warehouse {
                     if (p.getQuantity() <= 3) {
                         System.out.println("الكمية من هذا المنتج اصبحت اقل من 3 ");
                     }
+                    Invoice newInvoice = new Invoice(p.getName(), amountToSell, total);
+                    invoices.add(newInvoice);
+                    newInvoice.printInvoice();
+
+
                     return;
                 } else {
                     System.out.println("الكمية المطلوبة غير متاحة");

@@ -86,7 +86,7 @@ public class Main {
                     System.out.println("ادخل الكمية التي تريدها ");
                     int productQuantity = input.nextInt();
                     mywarehouse.sellProduct(productId, productQuantity);
-                    break;1
+                    break;
 
                 case 6:
                     System.out.println("شكرا لاستخدام برنامجنا 😊 تم تسجيل الخروج بنجاح ");
