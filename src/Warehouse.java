@@ -87,6 +87,5 @@ public class Warehouse {
             System.out.println("لم يتم العثور على المنتج ذو الرقم " + id);
         }
     }
-
-
+    
 }

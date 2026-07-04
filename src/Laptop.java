@@ -16,6 +16,4 @@ public class Laptop extends Product {
         super.display();
         System.out.println("ram :" + ram + "\n processor :" + processor);
     }
-
-
 }
