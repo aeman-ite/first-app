@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Warehouse {
+    private final ArrayList<Invoice> invoices = new ArrayList<Invoice>();
     private ArrayList<Product> stock;
-    private ArrayList<Invoice> invoices = new ArrayList<Invoice>();
 
 
     //الكونستراكتور لا يستقبل شيء فقط يقوم باضافة اول منتج
@@ -87,5 +87,5 @@ public class Warehouse {
             System.out.println("لم يتم العثور على المنتج ذو الرقم " + id);
         }
     }
-    
+
 }

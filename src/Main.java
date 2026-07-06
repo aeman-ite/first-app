@@ -1,6 +1,41 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+class warehouseLinkedlistStack {
+    static node top = null;
+
+    //دالة اضافة البضاعة
+    public static void puchProduct(int id) {
+        node newNode = new node(id);
+        newNode.next = top;
+        top = newNode;
+
+    }
+
+    //دالة التراجع عن العملية الاخيرة
+    public static int undoLastAction() {
+        if (top == null) {
+            System.out.println("لم يتم العثور على اي عملية");
+            return -1;
+        } else {
+            node firstNode = top;
+            int removedId = top.id;
+            top = firstNode.next;
+            return removedId;
+        }
+    }
+
+    static class node {
+        int id;
+        node next;
+
+        node(int id) {
+            this.id = id;
+            this.next = null;
+        }
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
 
@@ -25,8 +60,10 @@ public class Main {
             System.out.println("\n");
             System.out.println("5: بيع منتج عن طريق رقم التعريف ");
             System.out.println("\n");
-            System.out.println("6 : الخروج من النظام");
+            System.out.println("6: التراجع عن اخر عملية ");
             System.out.println("\n");
+            System.out.print("7 الخروج من الموقع ");
+            
             System.out.print("ادخل رقم خيارك 😊 : ");
             choice = input.nextInt();
             input.nextLine();
@@ -58,12 +95,19 @@ public class Main {
                     System.out.println("اختر صنف المنتج :" + " 1 : منتج عادي 2 : laptop 3 : mopile");
                     int choiceUser = input.nextInt();
                     input.nextLine();
+                    while (choiceUser < 1 || choiceUser > 3) {
+                        System.out.println("ادخل رقم من الخيارات المتاحة ");
+                        choiceUser = input.nextInt();
+                        input.nextLine();
+                    }
+
+
                     System.out.println("ادخل اسم المنتج :");
                     String name = input.nextLine();
 
                     System.out.println("ادخل الرقم التعريفي id :");
                     int id = input.nextInt();
-
+                    warehouseLinkedlistStack.puchProduct(id);
                     System.out.println("ادخل سعر المنتج :");
                     double price = input.nextDouble();
 
@@ -103,6 +147,16 @@ public class Main {
                     break;
 
                 case 6:
+                    System.out.println("التراجع عن اخر عملية اضفتها ");
+                    int deletId = warehouseLinkedlistStack.undoLastAction();
+                    if (deletId != -1) {
+                        mywarehouse.removeProductById(deletId);
+                    }
+                    System.out.println("\n");
+                    break;
+
+
+                case 7:
                     System.out.println("شكرا لاستخدام برنامجنا 😊 تم تسجيل الخروج بنجاح ");
                     running = false;
                     break;
