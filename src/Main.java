@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class warehouseLinkedlistStack {
@@ -46,7 +47,7 @@ public class Main {
         boolean running = true;
         while (running) {
 
-            int choice;
+            int choice = 0;
             System.out.println("\n");
             System.out.println("الرجاء اختيار عملية من القائمة ");
             System.out.println("\n");
@@ -63,12 +64,18 @@ public class Main {
             System.out.println("6: التراجع عن اخر عملية ");
             System.out.println("\n");
             System.out.print("7 الخروج من الموقع ");
-            
+            System.out.println("\n");
             System.out.print("ادخل رقم خيارك 😊 : ");
-            choice = input.nextInt();
+            try {
+                choice = input.nextInt();
+            } catch (InputMismatchException exp) {
+                System.out.println("int can not be String");
+            }
+
             input.nextLine();
 
             switch (choice) {
+
                 case 1:
                     System.out.println("===== المحتويات الموجودة بالمستودع =====");
                     mywarehouse.showInventory();
@@ -77,13 +84,36 @@ public class Main {
                 case 2:
 
                     System.out.print("==== البحث عن منتج بواسطة رقم التعريف الرجاء ادخال رقم التعريف : ====");
-                    int searchId = input.nextInt();
+                    int searchId = 0;
+                    boolean runingSearchId = true;
+                    while (runingSearchId) {
+                        try {
+                            searchId = input.nextInt();
+                            input.nextLine();
+                            runingSearchId = false;
+                        } catch (InputMismatchException expId) {
+                            System.out.println("int can not be String ");
+                            input.nextLine();
+                        }
+                    }
                     mywarehouse.searchProductById(searchId);
                     System.out.println("\n");
+                    runingSearchId = false;
                     break;
                 case 3:
                     System.out.print(" 3 : حذف المنتج بواسطة رقم التعريف الرجاء ادخال رقم المنتج المراد حذفه");
-                    int removeId = input.nextInt();
+                    int removeId = 0;
+                    boolean runRemovId = true;
+                    while (runRemovId) {
+                        try {
+                            removeId = input.nextInt();
+                            input.nextLine();
+                            runRemovId = false;
+                        } catch (InputMismatchException expRe) {
+                            System.out.println("int can not be String ");
+                            input.nextLine();
+                        }
+                    }
                     mywarehouse.removeProductById(removeId);
                     System.out.println("\n");
                     break;
@@ -92,27 +122,68 @@ public class Main {
                 case 4:
                     System.out.println("\n");
                     System.out.println("4:اضافة منتج الى القائمة ");
-                    System.out.println("اختر صنف المنتج :" + " 1 : منتج عادي 2 : laptop 3 : mopile");
-                    int choiceUser = input.nextInt();
-                    input.nextLine();
+                    System.out.println(" اختر صنف المنتج الذي تريده : " + " || enter 1:generic product " + "  || enter 3:laptop " + " || enter 2: mobile");
+                    int choiceUser = 0;
                     while (choiceUser < 1 || choiceUser > 3) {
-                        System.out.println("ادخل رقم من الخيارات المتاحة ");
-                        choiceUser = input.nextInt();
-                        input.nextLine();
+                        try {
+                            choiceUser = input.nextInt();
+                            input.nextLine();
+                            if (choiceUser < 1 || choiceUser > 3) {
+                                System.out.println("ادخل رقم من الخيارات المتاحة ");
+                            }
+                        } catch (InputMismatchException exc) {
+                            System.out.println("int can not be String ");
+                            input.nextLine();
+                        }
+                    }
+                    // الاسم
+                    System.out.println("ادخل اسم المنتج :");
+                    String name = input.nextLine();
+                    //الرقم التعريفي
+                    System.out.println("ادخل الرقم التعريفي id :");
+                    int id = 0;
+                    boolean runId = true;
+                    while (runId) {
+                        try {
+                            id = input.nextInt();
+                            input.nextLine();
+                            runId = false;
+                        } catch (InputMismatchException expId) {
+                            System.out.println("int can not be string");
+                            input.nextLine();
+                        }
+                        warehouseLinkedlistStack.puchProduct(id);
+                    }
+                    //السعر
+                    System.out.println("ادخل سعر المنتج :");
+                    double price = 0;
+                    boolean runPrice = true;
+                    while (runPrice) {
+                        try {
+                            price = input.nextDouble();
+                            input.nextLine();
+                            runPrice = false;
+                        } catch (InputMismatchException expPrice) {
+                            System.out.println("int can not be string");
+                            input.nextLine();
+                        }
+                    }
+                    //الكمية
+                    System.out.println("ادخل الكمية : ");
+                    int quantity = 0;
+                    boolean runQuntity = true;
+                    while (runQuntity) {
+                        try {
+                            quantity = input.nextInt();
+                            input.nextLine();
+                            runQuntity = false;
+                        } catch (InputMismatchException expQuantity) {
+                            System.out.println("int can not be string");
+                            input.nextLine();
+                        }
                     }
 
 
-                    System.out.println("ادخل اسم المنتج :");
-                    String name = input.nextLine();
-
-                    System.out.println("ادخل الرقم التعريفي id :");
-                    int id = input.nextInt();
-                    warehouseLinkedlistStack.puchProduct(id);
-                    System.out.println("ادخل سعر المنتج :");
-                    double price = input.nextDouble();
-
-                    System.out.println("ادخل الكمية : ");
-                    int quantity = input.nextInt();
                     if (choiceUser == 1) {
                         //انشاء كائن جديد
                         Product userProduct = new Product(id, name, price, quantity);
@@ -121,8 +192,18 @@ public class Main {
                         break;
                     } else if (choiceUser == 2) {
                         System.out.println("ادخل حجم الرام : ");
-                        int ram = input.nextInt();
-                        input.nextLine();
+                        int ram = 0;
+                        boolean runRam = true;
+                        while (runRam) {
+                            try {
+                                ram = input.nextInt();
+                                input.nextLine();
+                                runRam = false;
+                            } catch (InputMismatchException expRam) {
+                                System.out.println("int can not be string");
+                                input.nextLine();
+                            }
+                        }
                         System.out.println("ادخل نوع المعالج : ");
                         String processor = input.nextLine();
                         Laptop userLaptop = new Laptop(id, name, price, quantity, ram, processor);
@@ -130,8 +211,18 @@ public class Main {
                         break;
                     } else if (choiceUser == 3) {
                         System.out.println("ادخل سعه البطارية ");
-                        int battery = input.nextInt();
-                        input.nextLine();
+                        int battery = 0;
+                        boolean runBattery = true;
+                        while (runBattery) {
+                            try {
+                                battery = input.nextInt();
+                                input.nextLine();
+                                runBattery = false;
+                            } catch (InputMismatchException expBattery) {
+                                System.out.println("int can not be string");
+                                input.nextLine();
+                            }
+                        }
                         Mobile mobileUser = new Mobile(id, name, price, quantity, battery);
                         mywarehouse.addProduct(mobileUser);
                     }
@@ -140,9 +231,32 @@ public class Main {
 
                 case 5:
                     System.out.println("ادخل رقم المنتج الذي تريد بيعه : ");
-                    int productId = input.nextInt();
+                    int productId = 0;
+                    boolean runProductId = true;
+                    while (runProductId) {
+                        try {
+                            productId = input.nextInt();
+                            input.nextLine();
+                            runProductId = false;
+                        } catch (InputMismatchException expRunProductId) {
+                            System.out.println("int can not be string");
+                            input.nextLine();
+                        }
+                    }
                     System.out.println("ادخل الكمية التي تريدها ");
-                    int productQuantity = input.nextInt();
+                    int productQuantity = 0;
+                    boolean runProductQuantity = true;
+                    while (runProductQuantity) {
+                        try {
+                            productQuantity = input.nextInt();
+                            input.nextLine();
+                            runProductQuantity = false;
+                        } catch (InputMismatchException expproductQuantity) {
+                            System.out.println("int can not be string");
+                            input.nextLine();
+                        }
+
+                    }
                     mywarehouse.sellProduct(productId, productQuantity);
                     break;
 
@@ -162,7 +276,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("الرجاء اختيار رقم من 1 الى 6 ");
+                    System.out.println("الرجاء اختيار رقم من 1 الى 7 ");
             }
 
         }
