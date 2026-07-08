@@ -243,21 +243,27 @@ public class Main {
                             input.nextLine();
                         }
                     }
-                    System.out.println("ادخل الكمية التي تريدها ");
-                    int productQuantity = 0;
-                    boolean runProductQuantity = true;
-                    while (runProductQuantity) {
-                        try {
-                            productQuantity = input.nextInt();
-                            input.nextLine();
-                            runProductQuantity = false;
-                        } catch (InputMismatchException expproductQuantity) {
-                            System.out.println("int can not be string");
-                            input.nextLine();
-                        }
+                    boolean loopQuantity = true;
+                    while (loopQuantity) {
+                        System.out.println("ادخل الكمية التي تريدها ");
+                        int productQuantity = 0;
+                        boolean runProductQuantity = true;
+                        while (runProductQuantity) {
+                            try {
+                                productQuantity = input.nextInt();
+                                input.nextLine();
+                                runProductQuantity = false;
+                            } catch (InputMismatchException expproductQuantity) {
+                                System.out.println("int can not be string");
+                                input.nextLine();
+                            }
 
+                        }
+                        mywarehouse.sellProduct(productId, productQuantity);
+                        if (mywarehouse.isSellSuccessful) {
+                            loopQuantity = false;
+                        }
                     }
-                    mywarehouse.sellProduct(productId, productQuantity);
                     break;
 
                 case 6:

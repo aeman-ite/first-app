@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Warehouse {
     private final ArrayList<Invoice> invoices = new ArrayList<Invoice>();
+    public boolean isSellSuccessful = false;
     private ArrayList<Product> stock;
-
 
     //الكونستراكتور لا يستقبل شيء فقط يقوم باضافة اول منتج
     public Warehouse() {
@@ -31,6 +31,7 @@ public class Warehouse {
     }
 
     public void sellProduct(int id, int amountToSell) {
+
         for (Product p : stock) {
             if (p.getId() == id) {
                 if (p.getQuantity() >= amountToSell) {
@@ -40,20 +41,21 @@ public class Warehouse {
                     double total = p.getPrice() * amountToSell;
                     System.out.println("الحساب الاجمالي :" + total + "$");
                     if (p.getQuantity() <= 3) {
-                        System.out.println("الكمية من هذا المنتج اصبحت اقل من 3 ");
+                        System.out.println("الكمية من هذا المنتج اصبحت اقل او تساوي 3 ");
                     }
                     Invoice newInvoice = new Invoice(p.getName(), amountToSell, total);
                     invoices.add(newInvoice);
                     newInvoice.printInvoice();
-
-
+                    isSellSuccessful = true;
                     return;
                 } else {
                     System.out.println("الكمية المطلوبة غير متاحة");
+                    isSellSuccessful = false;
                     return;
                 }
             }
         }
+
         System.out.println(" لم يتم العثور على المنتج: " + id);
 
     }
