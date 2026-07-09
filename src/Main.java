@@ -245,7 +245,7 @@ public class Main {
                     }
                     boolean loopQuantity = true;
                     while (loopQuantity) {
-                        System.out.println("ادخل الكمية التي تريدها ");
+                        System.out.println("ادخل الكمية التي تريدها و ادخل الرقم 0 للرجوع الى القائمة");
                         int productQuantity = 0;
                         boolean runProductQuantity = true;
                         while (runProductQuantity) {
@@ -256,6 +256,12 @@ public class Main {
                             } catch (InputMismatchException expproductQuantity) {
                                 System.out.println("int can not be string");
                                 input.nextLine();
+
+                            }
+                            if (productQuantity == 0) {
+                                System.out.println("تم الغاء العملية والعودة للقائمة الرئيسية");
+                                loopQuantity = false;
+                                continue;
                             }
 
                         }
