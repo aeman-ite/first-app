@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// ستاك للتراجع عن اخر منتج تمت اضافته وربطته مع خيار اضافة المنتج
 class warehouseLinkedlistStack {
     static node top = null;
 
@@ -40,13 +41,14 @@ class warehouseLinkedlistStack {
 public class Main {
     public static void main(String[] args) {
 
-
+        //كائن من المستودع
         Warehouse mywarehouse = new Warehouse();
 
         Scanner input = new Scanner(System.in);
+        //هون قيمة من نوع بوليان و جملة وايل مشان يفضل البرنامج يتكرر حتي اعطيه امر الاغلاق
         boolean running = true;
         while (running) {
-
+            //متغير اسم الخيار يعني رقم العملية الي المستخم رح يادخله
             int choice = 0;
             System.out.println("\n");
             System.out.println("الرجاء اختيار عملية من القائمة ");
@@ -73,7 +75,7 @@ public class Main {
             }
 
             input.nextLine();
-
+            //جملة سويتش بتشوف شو المستخدم ادخل وبتنفذ الي بدو اياه
             switch (choice) {
 
                 case 1:
@@ -83,8 +85,9 @@ public class Main {
                     break;
                 case 2:
 
-                    System.out.print("==== البحث عن منتج بواسطة رقم التعريف الرجاء ادخال رقم التعريف : ====");
+                    System.out.print("==== البحث عن منتج بواسطة رقم التعريف الرجاء ادخال رقم التعريف او ادخل الرقم 0 للرجوع للقائمة الرئيسية: ====");
                     int searchId = 0;
+                    //هون مشان اذا المستخدم خربط اول مرة واجخل نص بدال رقم ما يسكر ويفضل يتكررر حتي يدخل رقم
                     boolean runingSearchId = true;
                     while (runingSearchId) {
                         try {
@@ -96,12 +99,16 @@ public class Main {
                             input.nextLine();
                         }
                     }
+                    if (searchId == 0) {
+                        System.out.println("تم الغاء العملية والرجوع للقائمة الرئيسية");
+                        break;
+                    }
                     mywarehouse.searchProductById(searchId);
                     System.out.println("\n");
                     runingSearchId = false;
                     break;
                 case 3:
-                    System.out.print(" 3 : حذف المنتج بواسطة رقم التعريف الرجاء ادخال رقم المنتج المراد حذفه");
+                    System.out.print(" 3 : حذف المنتج بواسطة رقم التعريف الرجاء ادخال رقم المنتج المراد حذفه او ادخل الرقم 0 للرجوع الى القائمة الرئيسية");
                     int removeId = 0;
                     boolean runRemovId = true;
                     while (runRemovId) {
@@ -122,19 +129,28 @@ public class Main {
                 case 4:
                     System.out.println("\n");
                     System.out.println("4:اضافة منتج الى القائمة ");
+                    System.out.println("ادخل الرقم 0 للعودة الى القائمة الرئيسية");
                     System.out.println(" اختر صنف المنتج الذي تريده : " + " || enter 1:generic product " + "  || enter 3:laptop " + " || enter 2: mobile");
                     int choiceUser = 0;
                     while (choiceUser < 1 || choiceUser > 3) {
                         try {
                             choiceUser = input.nextInt();
                             input.nextLine();
-                            if (choiceUser < 1 || choiceUser > 3) {
+                            if (choiceUser < 0 || choiceUser > 3) {
                                 System.out.println("ادخل رقم من الخيارات المتاحة ");
                             }
                         } catch (InputMismatchException exc) {
                             System.out.println("int can not be String ");
                             input.nextLine();
                         }
+                        if (choiceUser == 0) {
+
+                            break;
+                        }
+                    }
+                    if (choiceUser == 0) {
+                        System.out.println("تمت العودة الى القائمة الرئيسية");
+                        break;
                     }
                     // الاسم
                     System.out.println("ادخل اسم المنتج :");
@@ -226,12 +242,16 @@ public class Main {
                         Mobile mobileUser = new Mobile(id, name, price, quantity, battery);
                         mywarehouse.addProduct(mobileUser);
                     }
+                    if (choiceUser == 0) {
+                        System.out.println("تمت العودة الى القائمة الرئيسية");
+                        break;
+                    }
                     break;
 
 
                 case 5:
-                    System.out.println("ادخل رقم المنتج الذي تريد بيعه : ");
-                    int productId = 0;
+                    System.out.println("ادخل رقم المنتج الذي تريد بيعه او الرقم 0 للعودة الى القائمة الرئيسية : ");
+                    int productId = -1;
                     boolean runProductId = true;
                     while (runProductId) {
                         try {
@@ -242,11 +262,18 @@ public class Main {
                             System.out.println("int can not be string");
                             input.nextLine();
                         }
+                        if (productId == 0) {
+                            break;
+                        }
+                    }
+                    if (productId == 0) {
+                        System.out.println("تم العودة الى القائمة الرئيسية");
+                        break;
                     }
                     boolean loopQuantity = true;
                     while (loopQuantity) {
                         System.out.println("ادخل الكمية التي تريدها و ادخل الرقم 0 للرجوع الى القائمة");
-                        int productQuantity = 0;
+                        int productQuantity = -1;
                         boolean runProductQuantity = true;
                         while (runProductQuantity) {
                             try {
@@ -280,19 +307,14 @@ public class Main {
                     }
                     System.out.println("\n");
                     break;
-
-
                 case 7:
                     System.out.println("شكرا لاستخدام برنامجنا 😊 تم تسجيل الخروج بنجاح ");
                     running = false;
                     break;
-
                 default:
                     System.out.println("الرجاء اختيار رقم من 1 الى 7 ");
             }
-
         }
         input.close();
-
     }
 }
