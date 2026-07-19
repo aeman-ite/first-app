@@ -1,4 +1,5 @@
 public class Product {
+
     //==== الخصائص====
     private int id;
     private String name;

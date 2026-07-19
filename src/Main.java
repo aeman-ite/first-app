@@ -87,7 +87,7 @@ public class Main {
 
                     System.out.print("==== البحث عن منتج بواسطة رقم التعريف الرجاء ادخال رقم التعريف او ادخل الرقم 0 للرجوع للقائمة الرئيسية: ====");
                     int searchId = 0;
-                    //هون مشان اذا المستخدم خربط اول مرة واجخل نص بدال رقم ما يسكر ويفضل يتكررر حتي يدخل رقم
+                    //هون مشان اذا المستخدم خربط اول مرة وادخل نص بدال رقم ما يسكر ويفضل يتكرر حتي يدخل رقم
                     boolean runingSearchId = true;
                     while (runingSearchId) {
                         try {
@@ -120,6 +120,11 @@ public class Main {
                             System.out.println("int can not be String ");
                             input.nextLine();
                         }
+                    }
+                    if (removeId == 0) {
+
+                        System.out.println("تم الغاء العملية ");
+                        break;
                     }
                     mywarehouse.removeProductById(removeId);
                     System.out.println("\n");

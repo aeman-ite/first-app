@@ -85,8 +85,10 @@ public class Warehouse {
                 break;
             }
         }
-        if (removed == false) {
-            System.out.println("لم يتم العثور على المنتج ذو الرقم " + id);
+        if (id != 0) {
+            if (removed == false) {
+                System.out.println("لم يتم العثور على المنتج ذو الرقم " + id);
+            }
         }
     }
 
